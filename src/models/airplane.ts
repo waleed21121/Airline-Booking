@@ -1,26 +1,27 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-interface AirplaneAttributes {
+export interface AirplaneAttributes {
   modelNumber: string;
   capacity: number;
 }
 
-export default (sequelize: Sequelize) => {
-  class Airplane extends Model<AirplaneAttributes, Partial<AirplaneAttributes>> {
-
-  }
-  Airplane.init({
-    modelNumber: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    capacity: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+export class Airplane extends Model<AirplaneAttributes, Partial<AirplaneAttributes>> implements AirplaneAttributes {
+    modelNumber!: string;
+    capacity!: number;
+    
+    static initModel(sequelize: Sequelize): typeof Airplane {
+      return Airplane.init({
+        modelNumber: {
+          type: DataTypes.STRING,
+          allowNull: false
+        },
+        capacity: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        }
+      }, {
+        sequelize,
+        modelName: 'Airplane',
+      });
     }
-  }, {
-    sequelize,
-    modelName: 'Airplane',
-  });
-  return Airplane;
-};
+  }
