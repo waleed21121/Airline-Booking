@@ -15,7 +15,7 @@ async function createAirplane (req: Request<{}, {}, IAirplane, {}, {}>, res: Res
             error: null
         })
     } catch (error: any) {
-        res.status(StatusCodes.CREATED).send({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
             success: true,
             message: 'Something went wrong creating an airplane',
             data: null,
