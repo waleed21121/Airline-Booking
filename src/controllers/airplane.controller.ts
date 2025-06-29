@@ -3,8 +3,9 @@ import { IAirplane } from "../schemas/airplane.schema";
 import { AirplaneService } from "../services";
 import { IAirplaneResponse } from "../DTOs";
 import { StatusCodes } from "http-status-codes";
+import { TPostAirplane } from "../validators/airplane.validators";
 
-async function createAirplane (req: Request<{}, {}, IAirplane, {}, {}>, res: Response<IAirplaneResponse, {}>, next: NextFunction) {
+const createAirplane: TPostAirplane = async (req, res: Response<IAirplaneResponse>, next: NextFunction) => {
     // Error handling coming soon ...
     try {
         const airplane = await AirplaneService.createAirplane(req.body);

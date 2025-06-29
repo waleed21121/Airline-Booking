@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
 
-export default function <P, b, Q> (
-    ParamsSchema: z.ZodSchema,
-    BodySchema: z.ZodSchema,
-    QuerySchema: z.ZodSchema) {
-        return (req: Request<P, {}, b, Q>, res: Response, next: NextFunction) => {
+export default function <P, B, Q> (
+    ParamsSchema: z.ZodSchema<P>,
+    BodySchema: z.ZodSchema<B>,
+    QuerySchema: z.ZodSchema<Q>) {
+        return (req: Request<P, {}, B, Q>, res: Response, next: NextFunction) => {
             const { error: paramsError, data: paramsData } = ParamsSchema.safeParse(req.params);
             if (paramsError) {
                 // Error Handling
@@ -33,5 +33,6 @@ export default function <P, b, Q> (
                 configurable: true
             })
 
+            next();
         }
 }
