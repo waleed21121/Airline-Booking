@@ -2,11 +2,15 @@ import express from 'express';
 import { envVariables, Logger } from './config';
 import apiRrouter from './routes';
 import { initDb } from './models';
+import { errorHandler } from './middlewares';
 
 const app = express();
 app.use(express.json());
 
 app.use('/api', apiRrouter);
+
+// Error middleware
+app.use(errorHandler);
 
 initDb().then(() => {
     app.listen(envVariables.PORT, () => {
