@@ -17,9 +17,18 @@ async function findAirplanes() {
     return response;
 }
 
+async function findAirplane (id: number) {
+    const response = await airplaneRepository.findOne({where: {id: id}});
+    if(!response) {
+        throw new AppError(404, "Not Found", "No Airplane Found With The Given Id.");
+    }
+    return response;
+}
+
 const AirplaneService = {
     createAirplane,
-    findAirplanes
+    findAirplanes,
+    findAirplane
 }
 
 export default AirplaneService
