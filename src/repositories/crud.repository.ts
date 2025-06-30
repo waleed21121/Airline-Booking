@@ -15,32 +15,17 @@ export default abstract class CrudRepository <T extends Model> {
     }
 
     async delete(options: DestroyOptions<Attributes<T>>): Promise<number> {
-        try {
-            return await this.model.destroy(options);
-        } catch (error) {
-            Logger.error(error);
-            throw error;
-        }
+        return await this.model.destroy(options);
     }
 
     async find(options: FindOptions<Attributes<T>>): Promise<T[]> {
-        try {
-            const response = await this.model.findAll(options);
-            return response;
-        } catch (error) {
-            Logger.error(error);
-            throw error;
-        }
+        const response = await this.model.findAll(options);
+        return response;
     }
 
     async findOne(options: FindOptions<Attributes<T>>): Promise<T | null> {
-        try {
-            const response = await this.model.findOne(options);
-            return response;
-        } catch (error) {
-            Logger.error(error);
-            throw error;
-        }
+        const response = await this.model.findOne(options);
+        return response;
     }
 
     async update(data: { 
@@ -49,12 +34,8 @@ export default abstract class CrudRepository <T extends Model> {
     options: Omit<UpdateOptions<Attributes<T>>, "returning"> & {
     returning: true | (keyof Attributes<T>)[];
     } ): Promise<[affectedCount: number, affectedRows: T[]]> {
-        try {
-            const response = this.model.update(data, options);
-            return response;
-        } catch (error) {
-            Logger.error(error);
-            throw error;
-        }
+        
+        const response = this.model.update(data, options);
+        return response;
     }
 }
