@@ -10,13 +10,8 @@ export default abstract class CrudRepository <T extends Model> {
     }
 
     async create(data: MakeNullishOptional<T["_creationAttributes"]>): Promise<T> {
-        try {
-            const response = await this.model.create(data);
-            return response;
-        } catch (error) {
-            Logger.error(error);
-            throw error;
-        }
+        const response = await this.model.create(data);
+        return response;
     }
 
     async delete(options: DestroyOptions<Attributes<T>>): Promise<number> {

@@ -6,23 +6,13 @@ import { StatusCodes } from "http-status-codes";
 import { TPostAirplane } from "../validators/airplane.validators";
 
 const createAirplane: TPostAirplane = async (req, res: Response<IAirplaneResponse>, next: NextFunction) => {
-    // Error handling coming soon ...
-    try {
-        const airplane = await AirplaneService.createAirplane(req.body);
-        res.status(StatusCodes.CREATED).send({
-            success: true,
-            message: 'Successfully created an airplane',
-            data: airplane,
-            error: null
-        })
-    } catch (error: any) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-            success: true,
-            message: 'Something went wrong creating an airplane',
-            data: null,
-            error: error
-        })
-    }
+    const airplane = await AirplaneService.createAirplane(req.body);
+    res.status(StatusCodes.CREATED).send({
+        success: true,
+        message: 'Successfully created an airplane',
+        data: airplane,
+        error: null
+    })
 }
 
 
