@@ -13,11 +13,18 @@ export class Airplane extends Model<AirplaneAttributes, Partial<AirplaneAttribut
       return Airplane.init({
         modelNumber: {
           type: DataTypes.STRING,
-          allowNull: false
+          allowNull: false,
+          validate: {
+            isAlphanumeric: true
+          }
         },
         capacity: {
           type: DataTypes.INTEGER,
-          allowNull: false
+          allowNull: false,
+          validate: {
+            min: 1,
+            max: 1500
+          }
         }
       }, {
         sequelize,
