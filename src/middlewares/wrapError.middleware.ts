@@ -3,8 +3,8 @@ import { AppError } from "../utils";
 import { BaseError, ValidationError } from "sequelize";
 import { StatusCodes } from "http-status-codes";
 
-export default function (fn: (Preq: Request, Pres: Response, Pnext: NextFunction) => void ) {
-    return async (req: Request, res: Response, next: NextFunction) => {
+export default function <P, B, Q, R> (fn: (Preq: Request <P, {}, B, Q>, Pres: Response<R>, Pnext: NextFunction) => void ) {
+    return async (req: Request <P, {}, B, Q>, res: Response<R>, next: NextFunction) => {
         try {
             await fn(req, res, next);
         } catch (error) {
