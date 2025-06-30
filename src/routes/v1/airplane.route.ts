@@ -6,6 +6,7 @@ import { wrapErrorMiddleware } from "../../middlewares";
 const airplaneRouter = Router();
 
 airplaneRouter.route('/')
-                .post(postAirplaneValidator, wrapErrorMiddleware(AirplaneController.createAirplane));
+                .post(postAirplaneValidator, wrapErrorMiddleware(AirplaneController.createAirplane))
+                .get(wrapErrorMiddleware(AirplaneController.findAirplanes));
 
 export default airplaneRouter;

@@ -15,9 +15,19 @@ const createAirplane: TPostAirplane = async (req, res: Response<IAirplaneRespons
     })
 }
 
+const findAirplanes = async (req:Request, res: Response<IAirplaneResponse>, next: NextFunction) => {
+    const airplanes = await AirplaneService.findAirplanes();
+    res.status(200).send({
+        success: true,
+        message: 'Successfully found airplanes',
+        data: airplanes,
+        error: null
+    })
+}
 
 const AirplaneController = {
-    createAirplane
+    createAirplane,
+    findAirplanes
 }
 
 export default AirplaneController
