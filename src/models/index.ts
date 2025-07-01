@@ -1,6 +1,8 @@
 import { Dialect, Sequelize } from 'sequelize';
 import { envVariables } from '../config';
 import { Airplane } from "./airplane";
+import { City } from './city';
+
 
 const sequelize = new Sequelize({
   dialect: envVariables.DIALECT as Dialect, 
@@ -17,10 +19,12 @@ const sequelize = new Sequelize({
 // Export models and sequelize instance
 
 Airplane.initModel(sequelize);
+City.initModel(sequelize);
 
 export { 
   sequelize,
-  Airplane
+  Airplane,
+  City
 };
 
 
