@@ -12,6 +12,7 @@ airplaneRouter.route('/')
 
 airplaneRouter.route('/:id')
                 .get(idValidator, wrapErrorMiddleware(AirplaneController.findAirplane))
-                .patch(updateAirplaneValidtor, wrapErrorMiddleware(AirplaneController.updateAirplane));
+                .patch(updateAirplaneValidtor, wrapErrorMiddleware(AirplaneController.updateAirplane))
+                .delete(idValidator, wrapErrorMiddleware(AirplaneController.deleteAirplane));
 
 export default airplaneRouter;

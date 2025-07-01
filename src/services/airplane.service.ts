@@ -33,11 +33,20 @@ async function updateAirplane (data: Partial<IAirplane>, id: number) {
     return response[1];
 }
 
+async function deleteAirplane (id: number) {
+    const response = await airplaneRepository.delete({where: {id: id}});
+    if(response === 0) {
+        throw new AppError(404, "Not Found", "Deletion Failed: No Airplane Found With The Given Id.");
+    }
+    return response;
+}
+
 const AirplaneService = {
     createAirplane,
     findAirplanes,
     findAirplane,
-    updateAirplane
+    updateAirplane,
+    deleteAirplane
 }
 
 export default AirplaneService

@@ -46,11 +46,22 @@ const updateAirplane: TUpdateAirplane = async (req, res: Response<IAirplaneRespo
     })
 }
 
+const deleteAirplane: TIdValidator = async (req, res: Response<IAirplaneResponse>, next) => {
+    await AirplaneService.deleteAirplane(req.params.id);
+    res.status(StatusCodes.OK).send({
+        success: true,
+        message: 'Successfully Deleted Airplane',
+        data: null,
+        error: null
+    })
+}
+
 const AirplaneController = {
     createAirplane,
     findAirplanes,
     findAirplane,
-    updateAirplane
+    updateAirplane,
+    deleteAirplane
 }
 
 export default AirplaneController
