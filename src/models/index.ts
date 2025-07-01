@@ -23,6 +23,9 @@ Airplane.initModel(sequelize);
 City.initModel(sequelize);
 Airport.initModel(sequelize);
 
+// Run Associations
+require('./associations');
+
 export { 
   sequelize,
   Airplane,
