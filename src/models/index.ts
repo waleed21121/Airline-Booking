@@ -2,6 +2,7 @@ import { Dialect, Sequelize } from 'sequelize';
 import { envVariables } from '../config';
 import { Airplane } from "./airplane";
 import { City } from './city';
+import { Airport } from './airport';
 
 
 const sequelize = new Sequelize({
@@ -20,11 +21,13 @@ const sequelize = new Sequelize({
 
 Airplane.initModel(sequelize);
 City.initModel(sequelize);
+Airport.initModel(sequelize);
 
 export { 
   sequelize,
   Airplane,
-  City
+  City,
+  Airport
 };
 
 
