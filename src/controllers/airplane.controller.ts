@@ -3,7 +3,7 @@ import { IAirplane } from "../schemas/airplane.schema";
 import { AirplaneService } from "../services";
 import { IAirplaneResponse } from "../DTOs";
 import { StatusCodes } from "http-status-codes";
-import { TPostAirplane } from "../validators/airplane.validators";
+import { TPostAirplane, TUpdateAirplane } from "../validators/airplane.validators";
 import { TIdValidator } from '../validators/id.validator'
 
 const createAirplane: TPostAirplane = async (req, res: Response<IAirplaneResponse>, next: NextFunction) => {
@@ -18,7 +18,7 @@ const createAirplane: TPostAirplane = async (req, res: Response<IAirplaneRespons
 
 const findAirplanes = async (req:Request, res: Response<IAirplaneResponse>, next: NextFunction) => {
     const airplanes = await AirplaneService.findAirplanes();
-    res.status(200).send({
+    res.status(StatusCodes.OK).send({
         success: true,
         message: 'Successfully found airplanes',
         data: airplanes,
@@ -28,7 +28,7 @@ const findAirplanes = async (req:Request, res: Response<IAirplaneResponse>, next
 
 const findAirplane: TIdValidator = async (req, res: Response<IAirplaneResponse>, next) => {
     const airplanes = await AirplaneService.findAirplane(req.params.id);
-    res.status(200).send({
+    res.status(StatusCodes.OK).send({
         success: true,
         message: 'Successfully found airplanes',
         data: airplanes,
@@ -36,10 +36,21 @@ const findAirplane: TIdValidator = async (req, res: Response<IAirplaneResponse>,
     })
 }
 
+const updateAirplane: TUpdateAirplane = async (req, res: Response<IAirplaneResponse>, next) => {
+    const airplane = await AirplaneService.updateAirplane(req.body, req.params.id);
+    res.status(StatusCodes.OK).send({
+        success: true,
+        message: 'Successfully Updated Airplane',
+        data: airplane,
+        error: null
+    })
+}
+
 const AirplaneController = {
     createAirplane,
     findAirplanes,
-    findAirplane
+    findAirplane,
+    updateAirplane
 }
 
 export default AirplaneController

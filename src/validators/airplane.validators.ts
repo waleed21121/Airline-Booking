@@ -8,5 +8,5 @@ import { UpdateAirplaneSchema } from "../schemas/updateAirplane.schema";
 export const postAirplaneValidator = validationMiddleware(z.object({}), AirplaneSchema, z.object({}))
 export type TPostAirplane = typeof postAirplaneValidator
 
-export const updateAirplane = validationMiddleware(IdSchema, UpdateAirplaneSchema, z.object({}))
-export type TUpdateAirplane = typeof updateAirplane 
+export const updateAirplaneValidtor = validationMiddleware(IdSchema, UpdateAirplaneSchema, z.object({}))
+export type TUpdateAirplane = typeof updateAirplaneValidtor 

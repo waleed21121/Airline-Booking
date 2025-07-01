@@ -35,7 +35,7 @@ export default abstract class CrudRepository <T extends Model> {
     returning: true | (keyof Attributes<T>)[];
     } ): Promise<[affectedCount: number, affectedRows: T[]]> {
         
-        const response = this.model.update(data, options);
+        const response = await this.model.update(data, options);
         return response;
     }
 }

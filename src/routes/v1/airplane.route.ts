@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { AirplaneController } from "../../controllers";
-import { postAirplaneValidator } from "../../validators/airplane.validators";
+import { postAirplaneValidator, updateAirplaneValidtor } from "../../validators/airplane.validators";
 import { wrapErrorMiddleware } from "../../middlewares";
 import { idValidator } from "../../validators/id.validator";
 
@@ -11,6 +11,7 @@ airplaneRouter.route('/')
                 .get(wrapErrorMiddleware(AirplaneController.findAirplanes));
 
 airplaneRouter.route('/:id')
-                .get(idValidator, wrapErrorMiddleware(AirplaneController.findAirplane));
+                .get(idValidator, wrapErrorMiddleware(AirplaneController.findAirplane))
+                .patch(updateAirplaneValidtor, wrapErrorMiddleware(AirplaneController.updateAirplane));
 
 export default airplaneRouter;

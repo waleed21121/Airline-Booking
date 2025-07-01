@@ -25,10 +25,19 @@ async function findAirplane (id: number) {
     return response;
 }
 
+async function updateAirplane (data: Partial<IAirplane>, id: number) {
+    const response = await airplaneRepository.update(data, {where: {id: id}, returning: true});
+    if(response[0] === 0) {
+        throw new AppError(404, "Not Found", "Update Failed: No Airplane Found With The Given Id.");
+    }
+    return response[1];
+}
+
 const AirplaneService = {
     createAirplane,
     findAirplanes,
-    findAirplane
+    findAirplane,
+    updateAirplane
 }
 
 export default AirplaneService
