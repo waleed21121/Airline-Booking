@@ -3,7 +3,7 @@ import { envVariables } from '../config';
 import { Airplane } from "./airplane";
 import { City } from './city';
 import { Airport } from './airport';
-
+import { Flight } from './flight';
 
 const sequelize = new Sequelize({
   dialect: envVariables.DIALECT as Dialect, 
@@ -22,6 +22,7 @@ const sequelize = new Sequelize({
 Airplane.initModel(sequelize);
 City.initModel(sequelize);
 Airport.initModel(sequelize);
+Flight.initModel(sequelize);
 
 // Run Associations
 require('./associations');
@@ -30,7 +31,8 @@ export {
   sequelize,
   Airplane,
   City,
-  Airport
+  Airport,
+  Flight
 };
 
 

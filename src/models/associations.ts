@@ -1,4 +1,4 @@
-import { Airport, City } from './';
+import { Airport, City, Flight, Airplane } from './';
 
 // 1 to m relationship
 
@@ -10,4 +10,34 @@ Airport.belongsTo(City, {
     foreignKey: 'cityID',
     onDelete: 'cascade',
     onUpdate: 'cascade'
+})
+
+// 1 to m relationship
+Airplane.hasMany(Flight, {
+    foreignKey: 'airplaneId'
+})
+
+Flight.belongsTo(Airplane, {
+    foreignKey: 'airplaneId',
+    onDelete: 'CASCADE'
+})
+
+// 1 to m relationship
+Airport.hasMany(Flight, {
+    foreignKey: 'departureAirportId'
+})
+
+Flight.belongsTo(Airport, {
+    foreignKey: 'departureAirportId',
+    onDelete: 'CASCADE'
+})
+
+// 1 to m relationship
+Airport.hasMany(Flight, {
+    foreignKey: 'arrivalAirportId'
+})
+
+Flight.belongsTo(Airport, {
+    foreignKey: 'arrivalAirportId',
+    onDelete: 'CASCADE'
 })
