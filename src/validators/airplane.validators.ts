@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { validationMiddleware } from "../middlewares";
-import { AirplaneSchema } from "../schemas/airplane.schema";
+import { AirplaneSchema } from "../schemas/airplane/airplane.schema";
 import { IdSchema } from "../schemas/id.schema";
-import { UpdateAirplaneSchema } from "../schemas/updateAirplane.schema";
+import { UpdateAirplaneSchema } from "../schemas/airplane/updateAirplane.schema";
 
 
 export const postAirplaneValidator = validationMiddleware(z.object({}), AirplaneSchema, z.object({}))

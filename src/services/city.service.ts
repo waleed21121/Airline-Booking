@@ -1,5 +1,5 @@
 import { CityRepository } from '../repositories';
-import { ICity } from '../schemas/city.schema';
+import { ICity } from '../schemas/city/city.schema';
 import { AppError } from '../utils';
 
 const cityRepository = new CityRepository();

@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { IAirplane } from "../schemas/airplane.schema";
 import { AirplaneService } from "../services";
 import { IAirplaneResponse } from "../DTOs";
 import { StatusCodes } from "http-status-codes";

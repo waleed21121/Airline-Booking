@@ -1,5 +1,5 @@
 import { AirplaneRepository } from '../repositories';
-import { IAirplane } from '../schemas/airplane.schema';
+import { IAirplane } from '../schemas/airplane/airplane.schema';
 import { AppError } from '../utils';
 
 const airplaneRepository = new AirplaneRepository();
