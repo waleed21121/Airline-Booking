@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { AppError } from "./";
+import { AppError } from "..";
 import { StatusCodes } from "http-status-codes";
 
 export default function (zodError: ZodError, message: string): AppError {
