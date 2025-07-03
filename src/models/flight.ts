@@ -1,4 +1,5 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { Airport } from './airport';
 
 export interface FlightAttributes {
   id: number,
@@ -12,7 +13,9 @@ export interface FlightAttributes {
   boardingGate: string,
   totalSeats: number,
   createdAt: Date,
-  updatedAt: Date
+  updatedAt: Date,
+  departureAirport?: Airport,
+  arrivalAirport?: Airport,
 }
 
 export class Flight extends Model<FlightAttributes, Partial<FlightAttributes>> implements FlightAttributes {
@@ -28,6 +31,8 @@ export class Flight extends Model<FlightAttributes, Partial<FlightAttributes>> i
   totalSeats!: number;
   createdAt!: Date;
   updatedAt!: Date;
+  departureAirport?: Airport;
+  arrivalAirport?: Airport;
 
   static initModel(sequelize: Sequelize): typeof Flight {
     return Flight.init({
