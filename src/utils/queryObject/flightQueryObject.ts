@@ -1,5 +1,5 @@
 
-import { Airport, Flight } from "../../models";
+import { Airplane, Airport, Flight } from "../../models";
 import { IFlightQuery } from "../../schemas/query/flightQuery.schema";
 import { Includeable, Order, WhereOptions } from "sequelize";
 import { AppError } from "../";
@@ -15,7 +15,8 @@ export default function (data: IFlightQuery) {
         where: {},
         include: [
             {model: Airport, as: 'arrivalAirport'},
-            {model: Airport, as: 'departureAirport'}
+            {model: Airport, as: 'departureAirport'},
+            {model: Airplane, as: 'flightAirplane'}
         ],
         order: []
     };

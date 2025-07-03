@@ -18,7 +18,9 @@ Airplane.hasMany(Flight, {
 })
 
 Flight.belongsTo(Airplane, {
+    targetKey: 'id',
     foreignKey: 'airplaneId',
+    as: 'flightAirplane',
     onDelete: 'CASCADE'
 })
 
