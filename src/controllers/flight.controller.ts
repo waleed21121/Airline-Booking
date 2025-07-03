@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { FlightService } from "../services";
 import { StatusCodes } from "http-status-codes";
-import { TPostFlight } from "../validators/flight.validators";
+import { TGetFlights, TPostFlight } from "../validators/flight.validators";
 import { IFlightResponse } from "../DTOs";
 
 const createFlight: TPostFlight = async (req, res: Response<IFlightResponse>, next: NextFunction) => {
@@ -14,8 +14,19 @@ const createFlight: TPostFlight = async (req, res: Response<IFlightResponse>, ne
     })
 }
 
+const findFlights: TGetFlights = async (req, res: Response<IFlightResponse>, next: NextFunction) => {
+    const flight = await FlightService.findFlights(req.query);
+    res.status(StatusCodes.CREATED).send({
+        success: true,
+        message: 'Successfully founf flights.',
+        data: flight,
+        error: null
+    })
+}
+
 const FlightController = {
     createFlight,
+    findFlights
 }
 
 export default FlightController
