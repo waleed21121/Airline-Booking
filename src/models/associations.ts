@@ -28,7 +28,9 @@ Airport.hasMany(Flight, {
 })
 
 Flight.belongsTo(Airport, {
+    targetKey: 'code',
     foreignKey: 'departureAirportId',
+    as: 'departureAirport',
     onDelete: 'CASCADE'
 })
 
@@ -38,6 +40,8 @@ Airport.hasMany(Flight, {
 })
 
 Flight.belongsTo(Airport, {
+    targetKey: 'code',
     foreignKey: 'arrivalAirportId',
+    as: 'arrivalAirport',
     onDelete: 'CASCADE'
 })
