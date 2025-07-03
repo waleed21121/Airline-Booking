@@ -1,8 +1,10 @@
 import { FlightRepository} from '../repositories';
 import { IFlight } from '../schemas/flight/flight.schema';
-import { AppError, dateCompare } from '../utils';
+import { AppError, dateCompare, flightQueryObject } from '../utils';
 import { AirplaneRepository, AirportRepository } from '../repositories';
 import { StatusCodes } from 'http-status-codes';
+import { IFlightQuery } from '../schemas/query/flightQuery.schema';
+import { Airport } from '../models';
 
 const flightRepository = new FlightRepository();
 const airplaneRepository = new AirplaneRepository();
@@ -32,8 +34,21 @@ async function createFlight(data: IFlight) {
     return flight;
 }
 
+async function findFlights(data: IFlightQuery) {
+    const filterObject = flightQueryObject(data);
+
+    const flights = await flightRepository.find(filterObject);
+    
+    if(flights.length === 0) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Error finding and filtering the flights", "flights of the given filters not fount.")
+    }
+
+    return flights;
+}
+
 const FlightService = {
-    createFlight
+    createFlight,
+    findFlights
 }
 
 export default FlightService;
