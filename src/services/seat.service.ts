@@ -1,16 +1,24 @@
-import { SeatRepository } from '../repositories';
+import { StatusCodes } from 'http-status-codes';
+import { AirplaneRepository, SeatRepository } from '../repositories';
 import { ISeat } from '../schemas/seat/seat.schema';
 import { AppError } from '../utils';
+import { Airplane } from '../models';
 
 const seatRepository = new SeatRepository();
+const airplaneRepsitory = new AirplaneRepository();
 
 async function createSeat(data: ISeat) {
+    const airplane = await airplaneRepsitory.findOne({where: {id: data.airplaneId}});
+    if(!airplane) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Error when Creating the seat.", "The airplane with the given id is not found.")
+    }
+
     const response = await seatRepository.create(data);
     return response;
 }
 
 async function findSeats() {
-    const response = await seatRepository.find({});
+    const response = await seatRepository.find({include: {model: Airplane, as: 'airplane'}});
     if(response.length === 0) {
         throw new AppError(404, "Not Found", "No Seat Found.");
     }
