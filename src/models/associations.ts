@@ -1,4 +1,4 @@
-import { Airport, City, Flight, Airplane } from './';
+import { Airport, City, Flight, Airplane, Seat } from './';
 
 // 1 to m relationship
 
@@ -45,5 +45,17 @@ Flight.belongsTo(Airport, {
     targetKey: 'code',
     foreignKey: 'arrivalAirportId',
     as: 'arrivalAirport',
+    onDelete: 'CASCADE'
+})
+
+// 1 to m relationship
+Airplane.hasMany(Seat, {
+    foreignKey: 'airplaneId'
+})
+
+Seat.belongsTo(Airplane, {
+    targetKey: 'id',
+    foreignKey: 'airplaneId',
+    as: 'airplane',
     onDelete: 'CASCADE'
 })

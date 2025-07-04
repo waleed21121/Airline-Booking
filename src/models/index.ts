@@ -4,6 +4,7 @@ import { Airplane } from "./airplane";
 import { City } from './city';
 import { Airport } from './airport';
 import { Flight } from './flight';
+import { Seat } from './seat';
 
 const sequelize = new Sequelize({
   dialect: envVariables.DIALECT as Dialect, 
@@ -23,6 +24,7 @@ Airplane.initModel(sequelize);
 City.initModel(sequelize);
 Airport.initModel(sequelize);
 Flight.initModel(sequelize);
+Seat.initModel(sequelize);
 
 // Run Associations
 require('./associations');
@@ -32,7 +34,8 @@ export {
   Airplane,
   City,
   Airport,
-  Flight
+  Flight,
+  Seat
 };
 
 
