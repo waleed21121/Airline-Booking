@@ -57,7 +57,7 @@ export class Seat extends Model<SeatAttributes, Partial<SeatAttributes>> impleme
       }
     }, {
       sequelize,
-      modelName: 'Flight',
+      modelName: 'Seat',
     })
   }
 }
