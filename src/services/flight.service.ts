@@ -4,7 +4,7 @@ import { AppError, dateCompare, flightQueryObject } from '../utils';
 import { AirplaneRepository, AirportRepository } from '../repositories';
 import { StatusCodes } from 'http-status-codes';
 import { IFlightQuery } from '../schemas/query/flightQuery.schema';
-import { Airport } from '../models';
+import { Airplane, Airport } from '../models';
 
 const flightRepository = new FlightRepository();
 const airplaneRepository = new AirplaneRepository();
@@ -46,9 +46,24 @@ async function findFlights(data: IFlightQuery) {
     return flights;
 }
 
+async function findFlight(id: number) {
+    const flight = flightRepository.findOne({
+        where: {id: id},
+        include: [
+            {model: Airport, as: 'departureAirport'},
+            {model: Airport, as: 'arrivalAirport'},
+            {model: Airplane, as: 'flightAirplane'}
+        ]
+    });
+    if(!flight) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Error finding a sepcific flight", "flight with the given id not fount.")
+    }
+    return flight;
+}
 const FlightService = {
     createFlight,
-    findFlights
+    findFlights,
+    findFlight
 }
 
 export default FlightService;

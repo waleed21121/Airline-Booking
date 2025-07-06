@@ -10,4 +10,7 @@ flightRouter.route('/')
                 .post(postFlightValidator, wrapErrorMiddleware(FlightController.createFlight))
                 .get(getFlightsValidator, wrapErrorMiddleware(FlightController.findFlights));
 
+flightRouter.route('/:id')
+                .get(idValidator, wrapErrorMiddleware(FlightController.findFlight));
+
 export default flightRouter;
