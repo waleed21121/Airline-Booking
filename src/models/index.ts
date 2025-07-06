@@ -31,13 +31,14 @@ Booking.initModel(sequelize);
 // Run Associations
 require('./associations');
 
-export { 
-  sequelize,
-  Airplane,
-  City,
-  Airport,
-  Flight,
-  Seat
+export {
+    sequelize,
+    Airplane,
+    City,
+    Airport,
+    Flight,
+    Seat,
+    Booking
 };
 
 

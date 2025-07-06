@@ -3,11 +3,13 @@ import IErrorRsponse from "./respnoses/errorResponse.dto";
 import IAirportResponse from "./respnoses/airportResponse.dto";
 import IFlightResponse from "./respnoses/flightResponse.dto";
 import ISeatResponse from "./respnoses/seatRespnose.dto";
+import IBookingResponse from "./respnoses/bookingResponse";
 
 export {
     IAirplaneResponse,
     IErrorRsponse,
     IAirportResponse,
     IFlightResponse,
-    ISeatResponse
+    ISeatResponse,
+    IBookingResponse
 }
