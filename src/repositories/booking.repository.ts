@@ -4,7 +4,7 @@ import { Booking } from "../models";
 import { BookingAttributes } from "../models/booking";
 import CrudRepository from "./crud.repository";
 
-export default class AirportRepository extends CrudRepository<Booking> {
+export default class BookingRepository extends CrudRepository<Booking> {
     constructor () {
         super(Booking)
     }

@@ -3,11 +3,13 @@ import CityRepository from "./city.repository";
 import AirportRepository from "./airport.repository";
 import FlightRepository from "./flight.repository";
 import SeatRepository from "./seat.repository";
+import BookingRepository from "./booking.repository";
 
 export {
     AirplaneRepository,
     CityRepository,
     AirportRepository,
     FlightRepository,
-    SeatRepository
+    SeatRepository,
+    BookingRepository
 }
