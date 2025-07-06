@@ -5,6 +5,7 @@ import { AirplaneRepository, AirportRepository } from '../repositories';
 import { StatusCodes } from 'http-status-codes';
 import { IFlightQuery } from '../schemas/query/flightQuery.schema';
 import { Airplane, Airport } from '../models';
+import { IUpdateFlightSeats } from '../schemas/flight/updateFlightSeats.schema';
 
 const flightRepository = new FlightRepository();
 const airplaneRepository = new AirplaneRepository();
@@ -60,10 +61,21 @@ async function findFlight(id: number) {
     }
     return flight;
 }
+
+async function updateFlightSeats (id: number, data: IUpdateFlightSeats) {
+    const flight = await flightRepository.findOne({where: {id: id}});
+    if(!flight) {
+        throw new AppError(StatusCodes.NOT_FOUND, "Error finding a sepcific flight", "flight with the given id not fount.")
+    }
+    const updatedFlight = await flightRepository.updateFlightSeats(flight, data.seats, data.dec);
+    return updatedFlight;
+}
+
 const FlightService = {
     createFlight,
     findFlights,
-    findFlight
+    findFlight,
+    updateFlightSeats
 }
 
 export default FlightService;
