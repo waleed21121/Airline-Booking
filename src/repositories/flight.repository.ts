@@ -26,12 +26,12 @@ export default class FlightRepository extends CrudRepository<Flight> {
             }
 
             if(isCreated) {
-                myTransaction.commit();
+                await myTransaction.commit();
             }
 
             return updatedFlight;
         } catch (error) {
-            myTransaction.rollback();
+            await myTransaction.rollback();
             throw error;
         }
     }
