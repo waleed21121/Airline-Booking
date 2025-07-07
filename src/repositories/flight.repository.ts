@@ -1,27 +1,37 @@
 import CrudRepository from "./crud.repository";
 import { Flight } from "../models";
-import { addRowLockForUpdate } from "./queries/flightRawQueries";
 import { sequelize } from "../models";
+import { Transaction } from "sequelize";
 
 export default class FlightRepository extends CrudRepository<Flight> {
     constructor() {
         super(Flight);
     }
 
-    async updateFlightSeats(flight: Flight, seats: number, dec: boolean = true): Promise<Flight> {
-        const transaction = await sequelize.transaction();
+    async updateFlightSeats(flight: Flight, seats: number, dec: boolean = true, transaction?: Transaction): Promise<Flight> {
+        let myTransaction: Transaction;
+        let isCreated: boolean = false;
+        if(transaction) {
+            myTransaction = transaction
+        } else {
+            myTransaction = await sequelize.transaction();
+            isCreated = true;
+        }
         try {
-            await sequelize.query(addRowLockForUpdate(flight.id));
             let updatedFlight;
             if(dec) {
-                updatedFlight = await flight.decrement('totalSeats', {by: seats, transaction: transaction});
+                updatedFlight = await flight.decrement('totalSeats', {by: seats, transaction: myTransaction});
             } else {
-                updatedFlight = await flight.increment('totalSeats', {by: seats, transaction: transaction});
+                updatedFlight = await flight.increment('totalSeats', {by: seats, transaction: myTransaction});
             }
-            transaction.commit();
+
+            if(isCreated) {
+                myTransaction.commit();
+            }
+
             return updatedFlight;
         } catch (error) {
-            transaction.rollback();
+            myTransaction.rollback();
             throw error;
         }
     }
