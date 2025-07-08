@@ -4,6 +4,7 @@ import { BookingRepository, FlightRepository } from '../repositories';
 import { IBooking } from '../schemas/booking/booking.schema';
 import { AppError } from '../utils';
 import { IPyament } from '../schemas/booking/payment.schema';
+import { Op } from 'sequelize';
 
 const bookingRepository = new BookingRepository();
 const flightRepository = new FlightRepository();
@@ -125,9 +126,33 @@ async function cancelBooking (bookingId: number) {
         throw error
     }
 }
+
+async function  cancelOldBookings() {
+    const time = new Date(Date.now() - 300000); // 5 minutes ago.
+    const response = await bookingRepository.update({
+            status: 'cncelled'
+        }, {
+        where: {
+            [Op.and]: [
+                {
+                    createdAt: {
+                        [Op.lt]: time
+                    }
+                }, {
+                    status: {
+                        [Op.notIn]: ['cncelled', 'booked']
+                    }
+                }
+            ]
+        },
+        returning: true
+    });
+    return response;
+}
 const BookingService = {
     createBooking,
-    makePayment
+    makePayment,
+    cancelOldBookings
 }
 
 export default BookingService
