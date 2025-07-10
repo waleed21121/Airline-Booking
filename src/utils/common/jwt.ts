@@ -14,7 +14,7 @@ async function accessTokenGenerator (payload: User) {
 
 async function refreshTokenGenerator (payload: User) {
     const token = await sign(payload, envVariables.PRIVATE_KEY, {
-        expiresIn: '1h',
+        expiresIn: '1d',
         algorithm: "RS256"
     });
     return token;

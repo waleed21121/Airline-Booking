@@ -6,6 +6,8 @@ export interface UserAttributes {
   email: string;
   password: string;
   role: string;
+  isVerified: boolean;
+  verifyToken: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +17,8 @@ export class User extends Model<UserAttributes, Partial<UserAttributes>> impleme
   email!: string;
   password!: string;
   role!: string;
+  isVerified!: boolean;
+  verifyToken!: string;
   createdAt!: Date;
   updatedAt!: Date;
 
@@ -27,10 +31,11 @@ export class User extends Model<UserAttributes, Partial<UserAttributes>> impleme
         type: DataTypes.INTEGER
       },
       username: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       email: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
       },
       password: {
         type: DataTypes.STRING
@@ -40,6 +45,14 @@ export class User extends Model<UserAttributes, Partial<UserAttributes>> impleme
         values: ['user', 'admin'],
         defaultValue: 'user',
         type: DataTypes.STRING      
+      },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      verifyToken: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
