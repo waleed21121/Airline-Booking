@@ -8,7 +8,9 @@ const EnvSchema = z.object({
     DB_NAME: z.string().default('Airport'),
     DB_USER: z.string(),
     DB_PASSWORD: z.string(),
-    NODE_ENV: z.string().default('development')
+    NODE_ENV: z.string().default('development'),
+    PUBLIC_KEY: z.string(),
+    PRIVATE_KEY: z.string(),
 });
 
 export default EnvSchema
