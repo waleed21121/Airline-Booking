@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
         values: ['user', 'admin'],
         defaultValue: 'user',
-        type: Sequelize.DATE    
+        type: Sequelize.STRING   
       },
       createdAt: {
         allowNull: false,

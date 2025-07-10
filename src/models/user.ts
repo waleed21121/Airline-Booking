@@ -39,7 +39,7 @@ export class User extends Model<UserAttributes, Partial<UserAttributes>> impleme
         allowNull: false,
         values: ['user', 'admin'],
         defaultValue: 'user',
-        type: DataTypes.DATE        
+        type: DataTypes.STRING      
       },
       createdAt: {
         allowNull: false,
