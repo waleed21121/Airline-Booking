@@ -4,7 +4,7 @@ import { User } from "../../models";
 import AppError from "../errors/appError";
 import { StatusCodes } from "http-status-codes";
 
-async function accessTokenGenerator (payload: User) {
+async function accessTokenGenerator (payload: Partial<User>) {
     const token = await sign(payload, envVariables.PRIVATE_KEY, {
         expiresIn: '1h',
         algorithm: "RS256"
@@ -12,7 +12,7 @@ async function accessTokenGenerator (payload: User) {
     return token;
 }
 
-async function refreshTokenGenerator (payload: User) {
+async function refreshTokenGenerator (payload: Partial<User>) {
     const token = await sign(payload, envVariables.PRIVATE_KEY, {
         expiresIn: '1d',
         algorithm: "RS256"
