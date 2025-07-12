@@ -11,6 +11,10 @@ const EnvSchema = z.object({
     NODE_ENV: z.string().default('development'),
     PUBLIC_KEY: z.string(),
     PRIVATE_KEY: z.string(),
+    APP_PASSWORD: z.string(),
+    EMAIL_SERVICE: z.string(),
+    SENDER_EMAIL: z.string(),
+    SERVER_URL: z.string(),
 });
 
 export default EnvSchema
