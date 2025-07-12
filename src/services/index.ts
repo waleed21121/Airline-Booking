@@ -4,6 +4,7 @@ import AirportService from './airport.service';
 import FlightService from './flight.service';
 import SeatService from './seat.service';
 import BookingService from './booking.service';
+import UserService from './user.service';
 
 export {
     AirplaneService,
@@ -11,5 +12,6 @@ export {
     AirportService,
     FlightService,
     SeatService,
-    BookingService
+    BookingService,
+    UserService
 }
