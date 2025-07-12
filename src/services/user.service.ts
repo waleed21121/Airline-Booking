@@ -58,8 +58,9 @@ async function loginUser (data: ILoginUser) {
     if(!user.isVerified) {
         throw new AppError(StatusCodes.FORBIDDEN, "Error login the user", "Please verify your account with verification link.")
     }
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    if(hashedPassword !== user.password) {
+    
+    const match = await bcrypt.compare(data.password, user.password);
+    if(!match) {
         throw new AppError(StatusCodes.FORBIDDEN, "Error login the user", "The given password doesn't match the actual password.");
     }
 
