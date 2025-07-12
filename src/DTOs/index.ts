@@ -4,6 +4,7 @@ import IAirportResponse from "./respnoses/airportResponse.dto";
 import IFlightResponse from "./respnoses/flightResponse.dto";
 import ISeatResponse from "./respnoses/seatRespnose.dto";
 import IBookingResponse from "./respnoses/bookingResponse";
+import { IUserResponse, IUserAuthResponse } from "./respnoses/userResponse";
 
 export {
     IAirplaneResponse,
@@ -11,5 +12,7 @@ export {
     IAirportResponse,
     IFlightResponse,
     ISeatResponse,
-    IBookingResponse
+    IBookingResponse,
+    IUserResponse,
+    IUserAuthResponse
 }
