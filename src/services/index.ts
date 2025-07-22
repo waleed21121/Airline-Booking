@@ -5,6 +5,7 @@ import FlightService from './flight.service';
 import SeatService from './seat.service';
 import BookingService from './booking.service';
 import UserService from './user.service';
+import RedisService from './redis.service';
 
 export {
     AirplaneService,
@@ -13,5 +14,6 @@ export {
     FlightService,
     SeatService,
     BookingService,
-    UserService
+    UserService,
+    RedisService
 }

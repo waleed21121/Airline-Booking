@@ -2,9 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 import { Flight, sequelize } from '../models';
 import { BookingRepository, FlightRepository } from '../repositories';
 import { IBooking } from '../schemas/booking/booking.schema';
-import { AppError } from '../utils';
+import { AppError, flightKeyById } from '../utils';
 import { IPyament } from '../schemas/booking/payment.schema';
 import { Op } from 'sequelize';
+import RedisService from './redis.service';
 
 const bookingRepository = new BookingRepository();
 const flightRepository = new FlightRepository();
@@ -37,9 +38,16 @@ async function createBooking(data: IBooking) {
 
         const booking = await bookingRepository.createWithTransaction(bookingPayload, transaction);
 
-        await flightRepository.updateFlightSeats(flight, data.noOfSeats, true, transaction);
+        const updatedFlight = await flightRepository.updateFlightSeats(flight, data.noOfSeats, true, transaction);
 
         await transaction.commit();
+
+        // Update Cache
+        const key = flightKeyById(flight.id);
+        let cachedData = await RedisService.getJson(key) as Flight;
+        cachedData.totalSeats = updatedFlight.totalSeats;
+        await RedisService.setJson(key, cachedData);
+
         return booking;
     } catch (error) {
         await transaction.rollback();
