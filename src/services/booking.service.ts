@@ -6,6 +6,7 @@ import { AppError, flightKeyById } from '../utils';
 import { IPyament } from '../schemas/booking/payment.schema';
 import { Op } from 'sequelize';
 import RedisService from './redis.service';
+import FlightService from './flight.service';
 
 const bookingRepository = new BookingRepository();
 const flightRepository = new FlightRepository();
@@ -161,6 +162,18 @@ async function  cancelOldBookings() {
         },
         returning: true
     });
+
+    const bookings = response[1];
+    bookings.forEach(async (booking) => {
+        await FlightService.updateFlightSeats(
+            booking.flightId,
+            {
+                seats: booking.noOfSeats,
+                dec: false
+            }
+        )
+    })
+
     return response;
 }
 const BookingService = {
