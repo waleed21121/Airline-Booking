@@ -4,6 +4,7 @@ import uppercaseCheck from "./common/uppercaseCheck";
 import dateCompare from "./common/dateCompare";
 import flightQueryObject from "./queryObject/flightQueryObject";
 import JWT from "./common/jwt";
+import { flightsKey, flightKeyById } from "./common/redisKeysGenerator";
 
 export {
     AppError,
@@ -11,5 +12,7 @@ export {
     uppercaseCheck,
     dateCompare,
     flightQueryObject,
-    JWT
+    JWT,
+    flightsKey,
+    flightKeyById
 }
