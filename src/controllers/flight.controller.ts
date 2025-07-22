@@ -4,7 +4,6 @@ import { StatusCodes } from "http-status-codes";
 import { TGetFlights, TPostFlight, TUpdateFlightSeats } from "../validators/flight.validators";
 import { IFlightResponse } from "../DTOs";
 import { TIdValidator } from "../validators/id.validator";
-import { redisClient } from "../config";
 
 const createFlight: TPostFlight = async (req, res: Response<IFlightResponse>, next: NextFunction) => {
     const flight = await FlightService.createFlight(req.body);

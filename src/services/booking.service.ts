@@ -126,8 +126,14 @@ async function cancelBooking (bookingId: number) {
                 transaction: transaction
         });
 
-        await flightRepository.updateFlightSeats(bookingDetails.flight!, bookingDetails.noOfSeats, false, transaction);
+        const updatedFlight = await flightRepository.updateFlightSeats(bookingDetails.flight!, bookingDetails.noOfSeats, false, transaction);
         await transaction.commit();
+
+        // Update Cache
+        const key = flightKeyById(bookingDetails.flight!.id);
+        let cachedData = await RedisService.getJson(key) as Flight;
+        cachedData.totalSeats = updatedFlight.totalSeats;
+        await RedisService.setJson(key, cachedData);
 
     } catch (error) {
         await transaction.rollback();
