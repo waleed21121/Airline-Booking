@@ -4,9 +4,12 @@ import apiRrouter from './routes';
 import { initDb } from './models';
 import { errorHandler } from './middlewares';
 import scheduleCron from './utils/common/cronJobs';
+import statusMonitor from 'express-status-monitor';
 
 const app = express();
 app.use(express.json());
+
+//app.use(statusMonitor());
 
 app.use('/api', apiRrouter);
 

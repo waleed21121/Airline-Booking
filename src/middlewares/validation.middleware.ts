@@ -16,6 +16,9 @@ export default function <P, B, Q> (
             }
             req.params = paramsData;
 
+            if(!req.body) {
+                req.body = {} as B;
+            }
             const { error: bodyError, data: bodyData } = BodySchema.safeParse(req.body);
             if (bodyError) {
                 const error = zodErrorFormatter(bodyError, 'Invalid Request Body Object');
